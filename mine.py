@@ -28,11 +28,11 @@ walkto = "327 278"
 
 
 def click(position,waittime):
-    os.system(".。\\adb.exe -e shell input tap " + position)
+    os.system("..\\adb.exe -e shell input tap " + position)
     time.sleep(waittime)
 
 def doubleclick(position,waittime):
-    os.system(".。\\adb.exe -e shell \"input tap " + position + "&sleep 0.3&" + "input tap " + position +"\"")
+    os.system("..\\adb.exe -e shell \"input tap " + position + "&sleep 0.3&" + "input tap " + position +"\"")
     time.sleep(waittime)
 
 def warptotarget(index):
@@ -78,12 +78,12 @@ def returnstation():
     click(tabstation,1)
     warptotarget(0)
     time.sleep(20) # wait docking
-    click(menuavatar,2)
+    click(menuavatar,3)
     click(menucargo,5)
-    click(cargo_shipore,2)
-    click(selectallitem,2)
-    click(moveitemto,2)
-    click(moveitemtostationcargo,20)
+    click(cargo_shipore,3)
+    click(selectallitem,3)
+    click(moveitemto,3)
+    click(moveitemtostationcargo,15)
     
 
 def leavestation():
