@@ -9,13 +9,16 @@ taboregroup = "230 310"
 tabore = "230 130"
 tabstation = "230 220"
 
-targetlist = ["100 125","100 185","100 235"]
-targetwarp = ["330 125","330 185","330 235"]
+targetlist = ["100 125","100 185","100 235","100 290"]
+targetwarp = ["330 125","330 185","330 235","330 290"]
 targetlock = ["330 125","330 185","330 235"]
 targetwork = ["430 125","430 185","430 235"]
 targetaccs = ["330 235","330 285","330 335"]
-lightdrone = "620 565"
-laserminer = ["670 565","670 565","670 565"]
+speedup = "520 560"
+shiledenhence = "560 560"
+middledrone1 = "620 560"
+middledrone2 = "670 560"
+miner = ["720 565","770 565"]
 
 menuavatar = "45 45"
 menucargo = "268 143"
@@ -37,7 +40,7 @@ def doubleclick(position,waittime):
 
 def warptotarget(index):
     click(targetlist[index],2)
-    click(targetwarp[index],40)
+    click(targetwarp[index],50)
 
 def warptooregroup(index):
     click(taboregroup,1)
@@ -66,13 +69,21 @@ def work3targets():
     worktarget(2)
 
 def mining():
-    warptooregroup(2)
-    click(lightdrone,1)
-    count = 5
+    warptooregroup(3)
+    click(shiledenhence,1)
+    click(middledrone1,1)
+    click(middledrone2,1)
+    click(miner[0],1)
+    click(miner[1],1)
+    click(tabore,1)
+    count = 7
     while(count > 0):
-        work3targets()
-        work3targets()
-        count = count - 1
+        click(speedup,1)
+        walktotarget(0)
+        time.sleep(5)
+        click(speedup,1)
+        time.sleep(30)
+        
 
 def returnstation():
     click(tabstation,1)
@@ -95,6 +106,8 @@ if __name__ == "__main__":
     while(1):
         leavestation()
         click(allviews,2)
+        mining()
+        mining()
         mining()
         mining()
         returnstation()
