@@ -15,7 +15,6 @@ targetlock = ["330 125","330 185","330 235"]
 targetwork = ["430 125","430 185","430 235"]
 targetaccs = ["330 235","330 285","330 335"]
 speedup = "520 560"
-shiledenhence = "560 560"
 middledrone1 = "620 560"
 middledrone2 = "670 560"
 miner = ["720 565","770 565"]
@@ -70,20 +69,19 @@ def work3targets():
 
 def mining():
     warptooregroup(3)
-    click(shiledenhence,1)
     click(middledrone1,1)
     click(middledrone2,1)
     click(miner[0],1)
     click(miner[1],1)
     click(tabore,1)
-    count = 7
+    count = 5
     while(count > 0):
         click(speedup,1)
         walktotarget(0)
         time.sleep(5)
         click(speedup,1)
-        time.sleep(30)
-        
+        time.sleep(25)
+        count = count - 1
 
 def returnstation():
     click(tabstation,1)
