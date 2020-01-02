@@ -71,13 +71,14 @@ def mining():
     warptooregroup(3)
     click(middledrone1,1)
     click(middledrone2,1)
-    click(miner[0],1)
-    click(miner[1],1)
     click(tabore,1)
     count = 5
     while(count > 0):
         click(speedup,1)
         walktotarget(0)
+        if count == 5:        
+            click(miner[0],1)
+            click(miner[1],1)
         time.sleep(5)
         click(speedup,1)
         time.sleep(25)
