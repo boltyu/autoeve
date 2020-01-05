@@ -1,5 +1,5 @@
 import os
-import time
+import time 
 
 undock = "700 150"
 allviews = "760 400"
@@ -39,8 +39,8 @@ def doubleclick(position,waittime):
 
 def warptotarget(index):
     click(targetlist[index],2)
-    click(targetwarp[index],50)
-
+    click(targetwarp[index],60)
+    
 def warptooregroup(index):
     click(taboregroup,1)
     warptotarget(index)
@@ -48,7 +48,7 @@ def warptooregroup(index):
 def locktarget(index):
     click(targetlist[index],2)
     doubleclick(targetlist[index],2)
-
+    
 def worktarget(index):
     click(targetlist[index],2)
     click(targetwork[index],4)
@@ -66,28 +66,28 @@ def work3targets():
     worktarget(0)
     worktarget(1)
     worktarget(2)
-
 def mining():
-    warptooregroup(3)
+    warptooregroup(int(time.time()) % 4)
     click(middledrone1,1)
     click(middledrone2,1)
     click(tabore,1)
-    count = 5
+    walktotarget(1)
+    click(miner[0],1)
+    click(miner[1],1)
+    count = 3
     while(count > 0):
+        walktotarget(1)
+        time.sleep(2)
         click(speedup,1)
-        walktotarget(0)
-        if count == 5:        
-            click(miner[0],1)
-            click(miner[1],1)
-        time.sleep(5)
+        time.sleep(2)
         click(speedup,1)
-        time.sleep(25)
+        time.sleep(50)
         count = count - 1
 
 def returnstation():
     click(tabstation,1)
     warptotarget(0)
-    time.sleep(20) # wait docking
+    time.sleep(50) # wait docking
     click(menuavatar,3)
     click(menucargo,5)
     click(cargo_shipore,3)
@@ -98,7 +98,7 @@ def returnstation():
 
 def leavestation():
     click(closepage,2)
-    click(undock,30)
+    click(undock,50)
 
 if __name__ == "__main__":
     
