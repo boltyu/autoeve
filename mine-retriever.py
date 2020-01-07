@@ -83,7 +83,8 @@ def mining():
         click(speedup,1)
         time.sleep(50)
         count = count - 1
-
+    click(miner[0],1)
+    click(miner[1],1)
 def returnstation():
     click(tabstation,1)
     warptotarget(0)
