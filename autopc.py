@@ -1,8 +1,8 @@
 import os,time
-from auto_parameter_1280_720 import * 
+from auto_parameter_1280_720 import *
 
 def click(position,waittime):
-    os.system("..\\adb.exe -e shell input tap " + position)
+    os.system(CMD_HOSTADB + " input tap " + position)
     time.sleep(waittime)
 
 def ApproachTo(XY_target):
@@ -22,7 +22,7 @@ def LockTarget(XY_target):
     click(XY_targets_lock[XY_target],1.5)
 
 def doubleclick(position,waittime):
-    os.system("..\\adb.exe -e shell \"input tap " + position + "&sleep 0.3&" + "input tap " + position +"\"")
+    os.system(CMD_HOSTADB + " input tap " + position + "&sleep 0.3&" + "input tap " + position +"\"")
     time.sleep(waittime)
 
 def NavigateTo(XY_position):

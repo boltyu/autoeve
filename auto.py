@@ -1,7 +1,6 @@
 import os,time
 from auto_param_1920_1080 import *
 
-print(XY_view_asteroid) 
 def click(position,waittime):
     os.system(CMD_HOSTADB + " input tap " + position)
     time.sleep(waittime)
@@ -61,12 +60,12 @@ def Return2LocalStation():
 
     for i in range(0,2):
         ExitStation(i)
-        
-        for j in range(25):
+        for j in range(22):
             ApproachTo(0)
             print(j)
             doubleclick(XY_targets[0],1.5)
             doubleclick(XY_targets[1],1.5)
+            doubleclick(XY_targets[2],1.5)
             for k in range(3):
                 click(XY_targets[k],2)
                 click(XY_targets_mine[k],1)
