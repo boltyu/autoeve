@@ -22,7 +22,7 @@ XY_inventory_moveto = "150 150"
 XY_inventory_moveto_hanger = "500 150"
 XY_inventory_close = "1235 40"
 XY_exitstation = "1160 240"
-CMD_HOSTADB = "..\\adb.exe -e shell"
+CMD_HOSTADB = "..\\adb.exe -s "
     
 
 # rr = vars(XY_POS_1280_720)

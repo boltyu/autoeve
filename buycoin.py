@@ -1,8 +1,9 @@
 import os,time
 from auto_parameter_1280_720 import *
 
-devicename = ['192.168.1.187:5555']
+devicename = ['127.0.0.1:5605','127.0.0.1:5615','127.0.0.1:5555']#
 devicecount = 1
+
 
 def click(position,waittime):
     for i in range(devicecount):
