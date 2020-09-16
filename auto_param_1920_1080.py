@@ -1,4 +1,4 @@
-CMD_HOSTADB = "..\\adb.exe -d shell "
+CMD_HOSTADB = "..\\adb.exe -d "
 XY_targets = ['1651 135','1651 240','1651 345','1651 450',]
 XY_targets_lock = ['1276 135','1276 240','1276 345','1276 450',]
 XY_targets_mine = ['1021 135','1021 240','1021 345','1021 450',]

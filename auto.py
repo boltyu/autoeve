@@ -1,8 +1,13 @@
-import os,time
-from auto_parameter_1280_720 import *
+import os,time,random
+from auto_param_1920_1080 import *
 
-devicename = ['192.168.1.187:5555']
+devicename = ['']
 devicecount = 1
+
+def diffclick(positions,waittime):
+    for i in range(devicecount):
+        os.system(CMD_HOSTADB + devicename[i] + " shell input tap " + positions[random.randrange[3]])
+    time.sleep(waittime)
 
 def click(position,waittime):
     for i in range(devicecount):
@@ -72,7 +77,7 @@ def Return2LocalStation():
         click(XY_miners[0],0.5)
         click(XY_miners[1],0.5)
         click(XY_miners[2],0.5)
-        for j in range(30):
+        for j in range(20):
             print(j)
             ApproachTo(1)
             click(XY_view_asteroid,1.5)
@@ -81,7 +86,7 @@ def Return2LocalStation():
             for k in range(3):
                 click(XY_targets[k],2)
                 click(XY_targets_mine[k],1)
-            time.sleep(20)
+            time.sleep(40)
         Return2Home()
 
 if __name__ == "__main__":
