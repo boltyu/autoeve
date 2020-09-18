@@ -21,8 +21,18 @@ XY_inventory_selectall = "980 650"
 XY_inventory_moveto = "150 150"
 XY_inventory_moveto_hanger = "500 150"
 XY_inventory_close = "1235 40"
+XY_inventory_hostcargo = "125 195"
+XY_inventory_item1 = "415 195"
+XY_inventory_item1_moveto = "1120 100"
+XY_inventory_item1_moveto_subtab ="1255 315"
+XY_inventory_item1_moveto_subtab_orecargo = "1170 90"
+XY_inventory_item1_moveto_setmax = "1240 265"
+XY_inventory_item1_moveto_setmax_confirm = "1200 625"
+XY_inventory_item1_moveto_shipcargo = "1025 340"
+XY_inventory_shipcargo = "140 460"
+
 XY_exitstation = "1160 240"
-CMD_HOSTADB = "..\\adb.exe -s "
+CMD_HOSTADB = "adb -s "
     
 
 # rr = vars(XY_POS_1280_720)
