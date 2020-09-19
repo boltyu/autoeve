@@ -2,8 +2,9 @@ import os,time
 import random
 from auto_parameter_1280_720 import *
 
-devicename = ['192.168.1.187:5555','127.0.0.1:5605','127.0.0.1:5615','de496248','127.0.0.1:5555']#
-devicecount = 1
+devicename = ['127.0.0.1:5605','127.0.0.1:5645','de496248','192.168.1.187:5555','127.0.0.1:5555']#
+#devicename = ['192.168.1.187:5555']
+devicecount = 3
 
 def click_single(devicename,position,waittime):
     os.system(CMD_HOSTADB + devicename + " shell input tap " + position)
@@ -11,6 +12,11 @@ def click_single(devicename,position,waittime):
 def click(position,waittime):
     for i in range(devicecount):
         os.system(CMD_HOSTADB + devicename[i] + " shell input tap " + position)
+    time.sleep(waittime)
+
+def typetext(textstring,waittime):
+    for i in range(devicecount):
+        os.system(CMD_HOSTADB + devicename[i] + " shell input text " + textstring)
     time.sleep(waittime)
 
 def ApproachTo(XY_target):
@@ -100,7 +106,7 @@ def ExtendPlanet():
     click(XY_inventory_close,2)
     click(XY_inventory_close,2)
 
-XY_planet_item_launch = ["1200, 285","1200 370","1200 450","1200 530"]
+XY_planet_item_launch = ["1200 285","1200 370","1200 450","1200 530"]
 def LaunchPlanet():
     click(XY_planet,5)
     for items in XY_planet_items:
@@ -112,13 +118,70 @@ def LaunchPlanet():
     click(XY_inventory_close,2)
     click(XY_inventory_close,2)
 
+XY_inventory_collapse_tabstation = "125 101"
+XY_inventory_currentship = "140 456"
+XY_inventory_imicas = "140 493"
+XY_inventory_chongfeng = "140 565"
+XY_inventory_imicas_active = "45 493"
+XY_inventory_chongfeng_active= "45 565"
+
+def RetrieveOre():
+    click(XY_inventory,5)
+    click(XY_inventory_collapse_tabstation,2)
+    click(XY_inventory_imicas,2)
+    click(XY_inventory_imicas_active,20)
+    click(XY_inventory_close,2)
+    click(XY_inventory_close,2)
+    for i in [3,2,1,0]:
+        click(XY_planet,3)
+        click(XY_planet_items[i],3)
+        click("1160 650",2)
+        click(XY_navigator,2)
+        click(XY_navigator_confirm,1)
+        click(XY_inventory_close,2)
+        click(XY_inventory_close,1)
+        if i == 1:
+            time.sleep(80)
+        elif i == 3:
+            time.sleep(50)
+        else:
+            time.sleep(40)
+        click("460 620",2)
+    NavigateTo(0)
+    time.sleep(120)
+    click(XY_inventory,5)
+    click(XY_inventory_currentship,2)
+    click(XY_inventory_selectall,5)
+    click(XY_inventory_moveto,3)
+    click(XY_inventory_moveto_hanger,5)
+    click(XY_inventory_chongfeng,2)
+    click(XY_inventory_chongfeng_active,20)
+    click(XY_inventory_close,2)
+    click(XY_inventory_close,2)
+    click(XY_inventory_close,2)
+
+
 def ContractOre():
     click("50 35",2)
     click("700 200",3)
     click("145 679",2)
     click("733 392",2)
     click("860 495",3)
-    click("")
+    typetext("boltyu",3)
+    click("1080 30",2)
+    click("1080 30",2)
+    click("1153 660",2)
+    click("730 200",2)
+    click("730 270",2)
+    click("1132 206",2)
+    click("1055 352",2)
+    click("1050 205",2)
+    click("1153 660",2)
+    click("1153 660",2)
+    click("1067 611",2)
+    click(XY_inventory_close,2)
+    click(XY_inventory_close,2)
+    
 def StoreOre():
     click(XY_inventory,5)
     click(XY_inventory_orehold,5)
@@ -141,38 +204,48 @@ def Return2Home():
     StoreOre()
 
 def Return2LocalStation():
-    ExitStation(random.randrange(0,3))
-    click(XY_view_asteroid,1.5) # changed to asteriod tab
-    ApproachTo(1)
-    time.sleep(12)
-    doubleclick(XY_targets[0],1)
-    doubleclick(XY_targets[1],2)
-    click(XY_miners[0],0.5)
-    click(XY_miners[1],0.5)
-    click(XY_miners[2],0.5)
-    for j in range(18):
-        print(j)
+    ExtendPlanet()
+    for iii in range(15):
+        ExitStation(random.randrange(0,3))
+        click(XY_view_asteroid,1.5) # changed to asteriod tab
         ApproachTo(1)
-        ApproachTo(0)
+        time.sleep(12)
         doubleclick(XY_targets[0],1)
-        doubleclick(XY_targets[1],1)
-        for k in range(3):
-            click(XY_targets[k],2)
-            click(XY_targets_mine[k],1)
-        time.sleep(40)
-    Return2Home()
+        doubleclick(XY_targets[1],2)
+        click(XY_miners[0],0.5)
+        click(XY_miners[1],0.5)
+        click(XY_miners[2],0.5)
+        for j in range(15):
+            print(j)
+            ApproachTo(1)
+            ApproachTo(0)
+            doubleclick(XY_targets[0],1)
+            doubleclick(XY_targets[1],1)
+            for k in range(3):
+                click(XY_targets[k],2)
+                click(XY_targets_mine[k],1)
+            time.sleep(40)
+        Return2Home()
 
 if __name__ == "__main__":
     try:
         key = input("Do we need to return home at first? 'y' for yes, null or 'n' for no\r\n \
-            't' for transfer ore \
-            'e' for extend planet life")
+            't' for transfer ore\r\n \
+            'e' for extend planet life\r\n \
+            'l' for launch planet ore\r\n \
+            'c' for contract ore\r\n \
+            'r' for retrieve planet ore ")
+
         if(key == 'y'):
             Return2Home()
         elif(key == 'l'):
             LaunchPlanet()
         elif(key == 't'):
             TransferOre(5)
+        elif(key == 'c'):
+            ContractOre()
+        elif(key == 'r'):
+            RetrieveOre()
         elif(key == 'e'):
             ExtendPlanet()
         
