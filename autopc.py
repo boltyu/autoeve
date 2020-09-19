@@ -14,9 +14,9 @@ def click(position,waittime):
     time.sleep(waittime)
 
 def ApproachTo(XY_target):
-    click(XY_view_asteroid,1.5) # changed to asteriod tab
     #click(XY_afterburner,1)
-    click(XY_targets[XY_target],1.5)
+    click(XY_targets[XY_target],2)
+    click(XY_targets[XY_target],2)
     click(XY_targets_approach[XY_target],1.5)
     #click(XY_afterburner,1)
 
@@ -86,18 +86,39 @@ def TransferOre(expecttimes):
         TransferDestinition("137 391")
         NavigateTo(0)
         time.sleep(420)
+        print("transferation " + str(times) + " finished")
 
-planet_items = ["138 166","138 296","138 418","138 510"]
-def ExtendPlant():
-    click("336 93",5)
-    for i in planet_items:
+XY_planet_item_extend = "1200 125"
+XY_planet = "336 93"
+XY_planet_items = ["138 166","138 296","138 418","138 510"]
+def ExtendPlanet():
+    click(XY_planet,5)
+    for i in XY_planet_items:
         click(i,2)
-        click("1200 125",2) # extend time
+        click(XY_planet_item_extend,2) # extend time
         # click("1200 285",2) # launch resource
     click(XY_inventory_close,2)
     click(XY_inventory_close,2)
 
+XY_planet_item_launch = ["1200, 285","1200 370","1200 450","1200 530"]
+def LaunchPlanet():
+    click(XY_planet,5)
+    for items in XY_planet_items:
+        click(items,2)
+        click(XY_planet_item_extend,2)
+        for items_launch in range(4):
+            click(XY_planet_item_launch[items_launch],2)
+            click(XY_planet_item_launch[items_launch],2)
+    click(XY_inventory_close,2)
+    click(XY_inventory_close,2)
 
+def ContractOre():
+    click("50 35",2)
+    click("700 200",3)
+    click("145 679",2)
+    click("733 392",2)
+    click("860 495",3)
+    click("")
 def StoreOre():
     click(XY_inventory,5)
     click(XY_inventory_orehold,5)
@@ -118,22 +139,21 @@ def Return2Home():
     time.sleep(60)
     print("We are arriving at Home")
     StoreOre()
-    
 
 def Return2LocalStation():
-
     ExitStation(random.randrange(0,3))
+    click(XY_view_asteroid,1.5) # changed to asteriod tab
     ApproachTo(1)
     time.sleep(12)
     doubleclick(XY_targets[0],1)
-    doubleclick(XY_targets[1],1)
+    doubleclick(XY_targets[1],2)
     click(XY_miners[0],0.5)
     click(XY_miners[1],0.5)
     click(XY_miners[2],0.5)
     for j in range(18):
         print(j)
         ApproachTo(1)
-        click(XY_view_asteroid,1.5)
+        ApproachTo(0)
         doubleclick(XY_targets[0],1)
         doubleclick(XY_targets[1],1)
         for k in range(3):
@@ -143,17 +163,21 @@ def Return2LocalStation():
     Return2Home()
 
 if __name__ == "__main__":
-    key = input("Do we need to return home at first? 'y' for yes, null or 'n' for no\r\n \
-        't' for transfer ore \
-        'e' for extend planet life \
-        'y' for \)
-    if(key == 'y'):
-        Return2Home()
+    try:
+        key = input("Do we need to return home at first? 'y' for yes, null or 'n' for no\r\n \
+            't' for transfer ore \
+            'e' for extend planet life")
+        if(key == 'y'):
+            Return2Home()
+        elif(key == 'l'):
+            LaunchPlanet()
+        elif(key == 't'):
+            TransferOre(5)
+        elif(key == 'e'):
+            ExtendPlanet()
         
-    elif(key == 't'):
-        TransferOre(5)
-    elif(key == 'e'):
-        ExtendPlant()
-    
-    while True:
-        Return2LocalStation()
+        while True:
+            Return2LocalStation()
+    except KeyboardInterrupt:
+        print("user cancel")
+        
