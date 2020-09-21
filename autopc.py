@@ -2,9 +2,9 @@ import os,time
 import random
 from auto_parameter_1280_720 import *
 
-devicename = ['127.0.0.1:5605','127.0.0.1:5645','de496248','192.168.1.187:5555','127.0.0.1:5555']#
+devicename = ['127.0.0.1:5605','127.0.0.1:5645','127.0.0.1:5555','de496248','192.168.1.187:5555']#
 #devicename = ['192.168.1.187:5555']
-devicecount = 3
+devicecount = 4
 
 def click_single(devicename,position,waittime):
     os.system(CMD_HOSTADB + devicename + " shell input tap " + position)
@@ -26,12 +26,13 @@ def ApproachTo(XY_target):
     click(XY_targets_approach[XY_target],1.5)
     #click(XY_afterburner,1)
 
-def WarpTo(XY_target):
+def WarpTo():
     click(XY_view,2)
+    randomtargets = [0,1,2,3]
+    randomtargets = random.shuffle(randomtargets)
     for i in range(devicecount):
-        tindex = random.randrange(0,3)
-        click_single(devicename[i],XY_targets[tindex],1)
-        click_single(devicename[i],XY_targets_approach[tindex],1)
+        click_single(devicename[i],XY_targets[i],1)
+        click_single(devicename[i],XY_targets_approach[i],1)
     time.sleep(30)
 
 def LockTarget(XY_target):
@@ -191,10 +192,10 @@ def StoreOre():
     click(XY_inventory_close,2)
     click(XY_inventory_close,2)
 
-def ExitStation(target):
+def ExitStation():
     click(XY_exitstation,25)
     click(XY_view,2)
-    WarpTo(target)
+    WarpTo()
     print("We are now in Asteroid Cluster")
 
 def Return2Home():
@@ -204,19 +205,18 @@ def Return2Home():
     StoreOre()
 
 def Return2LocalStation():
-    ExtendPlanet()
     for iii in range(15):
-        ExitStation(random.randrange(0,3))
+        ExitStation()
         click(XY_view_asteroid,1.5) # changed to asteriod tab
         ApproachTo(1)
         time.sleep(12)
         doubleclick(XY_targets[0],1)
         doubleclick(XY_targets[1],2)
-        click(XY_miners[0],0.5)
-        click(XY_miners[1],0.5)
-        click(XY_miners[2],0.5)
+        click(XY_miners[0],0)
+        click(XY_miners[1],0)
         for j in range(15):
             print(j)
+            click(XY_view_asteroid,1) # changed to asteriod tab
             ApproachTo(1)
             ApproachTo(0)
             doubleclick(XY_targets[0],1)
@@ -226,6 +226,8 @@ def Return2LocalStation():
                 click(XY_targets_mine[k],1)
             time.sleep(40)
         Return2Home()
+    ExtendPlanet()
+    ContractOre()
 
 if __name__ == "__main__":
     try:
