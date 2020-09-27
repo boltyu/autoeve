@@ -2,9 +2,9 @@ import os,time
 import random
 from auto_parameter_1280_720 import *
 
-devicename = ['127.0.0.1:5605','127.0.0.1:5645','127.0.0.1:5555','de496248','192.168.1.187:5555']#
-#devicename = ['192.168.1.187:5555']
-devicecount = 3
+#devicename = ['127.0.0.1:5605','127.0.0.1:5645','127.0.0.1:5555','de496248','192.168.1.187:5555']#
+devicename = ['192.168.1.69:5555']
+devicecount = 1
 
 def click_single(devicename,position,waittime):
     os.system(CMD_HOSTADB + devicename + " shell input tap " + position)
@@ -28,12 +28,12 @@ def ApproachTo(XY_target):
 
 def WarpTo():
     click(XY_view,2)
-    randomtargets = [0,1,2,3]
+    randomtargets = [3,1,2,3]
     random.shuffle(randomtargets)
     for i in range(devicecount):
         click_single(devicename[i],XY_targets[randomtargets[i]],1)
         click_single(devicename[i],XY_targets_approach[randomtargets[i]],1)
-    time.sleep(30)
+    time.sleep(55)
 
 def LockTarget(XY_target):
     click(XY_targets[XY_target],1)
@@ -182,7 +182,7 @@ def ContractOre():
     click("1067 611",2)
     click(XY_inventory_close,2)
     click(XY_inventory_close,2)
-    
+
 def StoreOre():
     click(XY_inventory,5)
     click(XY_inventory_orehold,5)
@@ -193,43 +193,38 @@ def StoreOre():
     click(XY_inventory_close,2)
 
 def ExitStation():
-    click(XY_exitstation,25)
+    click(XY_exitstation,30)
     click(XY_view,2)
     WarpTo()
     print("We are now in Asteroid Cluster")
 
 def Return2Home():
     NavigateTo(0)
-    time.sleep(60)
+    time.sleep(70)
     print("We are arriving at Home")
     click(XY_closeads,1)
     click(XY_closeads,1)
     StoreOre()
 
 def Return2LocalStation():
-    for iii in range(15):
+    for iii in range(10):
         ExitStation()
-        click(XY_view_asteroid,1.5) # changed to asteriod tab
-        ApproachTo(1)
-        time.sleep(12)
-        doubleclick(XY_targets[0],1)
-        doubleclick(XY_targets[1],2)
-        click(XY_miners[0],0)
-        click(XY_miners[1],0)
-        for j in range(15):
+        click(XY_miners[0],1)
+        click(XY_miners[1],1)
+        click(XY_view_asteroid,1) # changed to asteriod tab
+        for j in range(20):
             print(j)
+            if(j%10==7):
+                click(XY_view_asteroid_cluster,1)
+                WarpTo()
+                time.sleep(10)
+                click(XY_miners[0],1)
+                click(XY_miners[1],1)
             click(XY_view_asteroid,1) # changed to asteriod tab
-            ApproachTo(1)
             ApproachTo(0)
-            doubleclick(XY_targets[0],1)
-            doubleclick(XY_targets[1],0)
-            for k in range(3):
-                click(XY_targets[k],2)
-                click(XY_targets_mine[k],1)
-            time.sleep(40)
+            time.sleep(60)
         Return2Home()
     ExtendPlanet()
-    ContractOre()
 
 if __name__ == "__main__":
     try:
@@ -252,9 +247,8 @@ if __name__ == "__main__":
             RetrieveOre()
         elif(key == 'e'):
             ExtendPlanet()
-        
+
         while True:
             Return2LocalStation()
     except KeyboardInterrupt:
         print("user cancel")
-        

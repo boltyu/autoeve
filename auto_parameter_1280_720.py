@@ -30,7 +30,7 @@ XY_inventory_item1_moveto_setmax = "1240 265"
 XY_inventory_item1_moveto_setmax_confirm = "1200 625"
 XY_inventory_item1_moveto_shipcargo = "1025 340"
 XY_inventory_shipcargo = "140 460"
-
+XY_closeads = "1090 113"
 XY_exitstation = "1160 240"
 CMD_HOSTADB = "..\\adb.exe -s "
     
