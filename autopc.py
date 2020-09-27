@@ -6,6 +6,10 @@ devicename = ['127.0.0.1:5605','127.0.0.1:5645','127.0.0.1:5555','de496248','192
 #devicename = ['192.168.1.187:5555']
 devicecount = 3
 
+for i in devicename:
+    os.system(CMD_HOSTADB_GENERAL + "connect " + i)
+
+
 def click_single(devicename,position,waittime):
     os.system(CMD_HOSTADB + devicename + " shell input tap " + position)
 

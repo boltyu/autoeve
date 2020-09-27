@@ -6,6 +6,9 @@ from auto_parameter_1280_720 import *
 devicename = ['192.168.1.69:5555']
 devicecount = 1
 
+for i in devicename:
+    os.system(CMD_HOSTADB_GENERAL + "connect " + i)
+
 def click_single(devicename,position,waittime):
     os.system(CMD_HOSTADB + devicename + " shell input tap " + position)
 

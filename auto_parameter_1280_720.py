@@ -33,6 +33,7 @@ XY_inventory_shipcargo = "140 460"
 XY_closeads = "1090 113"
 XY_exitstation = "1160 240"
 CMD_HOSTADB = "..\\adb.exe -s "
+CMD_HOSTADB_GENERAL = "..\\adb.exe "
     
 
 # rr = vars(XY_POS_1280_720)
