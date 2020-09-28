@@ -2,12 +2,12 @@ import os,time
 import random
 from auto_parameter_1280_720 import *
 
-devicename = ['127.0.0.1:5605','127.0.0.1:5645','127.0.0.1:5555','de496248','192.168.1.187:5555']#
+devicename = ['127.0.0.1:5645','de496248','127.0.0.1:5555','127.0.0.1:5605','192.168.1.187:5555']#
 #devicename = ['192.168.1.187:5555']
 devicecount = 3
 
-for i in devicename:
-    os.system(CMD_HOSTADB_GENERAL + "connect " + i)
+for in range(devicecount):
+    os.system(CMD_HOSTADB_GENERAL + "connect " + devicename[i])
 
 
 def click_single(devicename,position,waittime):
