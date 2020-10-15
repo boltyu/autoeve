@@ -1,14 +1,7 @@
-import os,time
-import random
-from auto_parameter_1280_720 import *
-
-devicename = ['127.0.0.1:5645','de496248','127.0.0.1:5555','127.0.0.1:5605','192.168.1.187:5555']#
-#devicename = ['192.168.1.187:5555']
-devicecount = 3
-
-for in range(devicecount):
-    os.system(CMD_HOSTADB_GENERAL + "connect " + devicename[i])
-
+from parameter_720_1280 import *
+import os,time,socket,tarfile,random
+from PIL import Image
+from __main__ import devicecount,devicename
 
 def click_single(devicename,position,waittime):
     os.system(CMD_HOSTADB + devicename + " shell input tap " + position)
@@ -48,10 +41,10 @@ def doubleclick(position,waittime):
         os.system(CMD_HOSTADB + devicename[i] + " shell \"input tap " + position + "&sleep 0.3&" + "input tap " + position +"\"")
     time.sleep(waittime)
 
-def NavigateTo(XY_position):
+def NavigateToChatpos(XY_position):
     click(XY_chat,2)
-    click(XY_positions[XY_position],1)
-    click(XY_positions_set[XY_position],1)
+    click(XY_chat_positions[XY_position],1)
+    click(XY_chat_positions_set[XY_position],1)
     click(XY_blank,1)
     click(XY_navigator,1)
     click(XY_navigator_confirm,1)
@@ -95,13 +88,10 @@ def TransferOre(expecttimes):
             click(XY_inventory_moveto,1)
             click(XY_inventory_moveto_hanger,2)
         TransferDestinition("137 391")
-        NavigateTo(0)
+        NavigateToChatpos(0)
         time.sleep(420)
-        print("transferation " + str(times) + " finished")
+        #print("transferation " + str(times) + " finished")
 
-XY_planet_item_extend = "1200 125"
-XY_planet = "336 93"
-XY_planet_items = ["138 166","138 296","138 418","138 510"]
 def ExtendPlanet():
     click(XY_planet,5)
     for i in XY_planet_items:
@@ -111,7 +101,6 @@ def ExtendPlanet():
     click(XY_inventory_close,2)
     click(XY_inventory_close,2)
 
-XY_planet_item_launch = ["1200 285","1200 370","1200 450","1200 530"]
 def LaunchPlanet():
     click(XY_planet,5)
     for items in XY_planet_items:
@@ -123,12 +112,6 @@ def LaunchPlanet():
     click(XY_inventory_close,2)
     click(XY_inventory_close,2)
 
-XY_inventory_collapse_tabstation = "125 101"
-XY_inventory_currentship = "140 456"
-XY_inventory_imicas = "140 493"
-XY_inventory_chongfeng = "140 565"
-XY_inventory_imicas_active = "45 493"
-XY_inventory_chongfeng_active= "45 565"
 
 def RetrieveOre():
     click(XY_inventory,5)
@@ -152,7 +135,7 @@ def RetrieveOre():
         else:
             time.sleep(40)
         click("460 620",2)
-    NavigateTo(0)
+    Return2Home()
     time.sleep(120)
     click(XY_inventory,5)
     click(XY_inventory_currentship,2)
@@ -165,34 +148,49 @@ def RetrieveOre():
     click(XY_inventory_close,2)
     click(XY_inventory_close,2)
 
-
+''' 在军团产业中无需使用合同功能
 def ContractOre():
-    click("50 35",2)
-    click("700 200",3)
-    click("145 679",2)
-    click("733 392",2)
+    click("185 100",5)
+    click("145 679",3)
+    click("733 392",3)
     click("860 495",3)
     typetext("boltyu",3)
-    click("1080 30",2)
-    click("1080 30",2)
-    click("1153 660",2)
-    click("730 200",2)
-    click("730 270",2)
-    click("1132 206",2)
-    click("1055 352",2)
-    click("1050 205",2)
-    click("1153 660",2)
-    click("1153 660",2)
-    click("1067 611",2)
+    click("1080 30",3)
+    click("1080 30",3)
+    click("1153 660",3)
+    click("730 200",3)
+    click("730 270",3)
+    click("1132 206",3)
+    click("1055 352",3)
+    click("1050 205",3)
+    click("1153 660",3)
+    click("1153 660",3)
+    click("1067 611",3)
     click(XY_inventory_close,2)
     click(XY_inventory_close,2)
-    
+'''
+
+def MoveOre2Company():
+    click(XY_inventory,5)
+    click(XY_inventory_hostcargo,2)
+    click(XY_inventory_filter,2)
+    click(XY_inventory_filter_ore,3)
+    click(XY_inventory_selectall,2)
+    click(XY_inventory_selectall,2)
+    click(XY_inventory_moveto,2)
+    click(XY_inventory_moveto_c1,10)
+    click(XY_inventory_hostcargo,3)
+    click(XY_inventory_close,2)
+    click(XY_inventory_close,2)
+
+
 def StoreOre():
     click(XY_inventory,5)
     click(XY_inventory_orehold,5)
     click(XY_inventory_selectall,5)
     click(XY_inventory_moveto,3)
     click(XY_inventory_moveto_hanger,5)
+    #click("510 422",5)
     click(XY_inventory_close,2)
     click(XY_inventory_close,2)
 
@@ -200,65 +198,20 @@ def ExitStation():
     click(XY_exitstation,25)
     click(XY_view,2)
     WarpTo()
-    print("We are now in Asteroid Cluster")
+    #print("We are now in Asteroid Cluster")
 
 def Return2Home():
-    NavigateTo(0)
+    #NavigateTo(0)
+    click(XY_company,10)
+    click(XY_company_setnav,0)
+    click(XY_inventory_close,1)
+    click(XY_inventory_close,1)
+    click(XY_navigator,2)
+    click(XY_miners[0],0)
+    click(XY_miners[1],0)
+    click(XY_miners[2],0)
     time.sleep(60)
-    print("We are arriving at Home")
-    click(XY_closeads,1)
-    click(XY_closeads,1)
+    #print("We are arriving at Home")
+    click(XY_closeads,8)
+    click(XY_closeads,8)
     StoreOre()
-
-def Return2LocalStation():
-    for iii in range(15):
-        ExitStation()
-        click(XY_view_asteroid,1.5) # changed to asteriod tab
-        ApproachTo(1)
-        time.sleep(12)
-        doubleclick(XY_targets[0],1)
-        doubleclick(XY_targets[1],2)
-        click(XY_miners[0],0)
-        click(XY_miners[1],0)
-        for j in range(15):
-            print(j)
-            click(XY_view_asteroid,1) # changed to asteriod tab
-            ApproachTo(1)
-            ApproachTo(0)
-            doubleclick(XY_targets[0],1)
-            doubleclick(XY_targets[1],0)
-            for k in range(3):
-                click(XY_targets[k],2)
-                click(XY_targets_mine[k],1)
-            time.sleep(40)
-        Return2Home()
-    ExtendPlanet()
-    ContractOre()
-
-if __name__ == "__main__":
-    try:
-        key = input("Do we need to return home at first? 'y' for yes, null or 'n' for no\r\n \
-            't' for transfer ore\r\n \
-            'e' for extend planet life\r\n \
-            'l' for launch planet ore\r\n \
-            'c' for contract ore\r\n \
-            'r' for retrieve planet ore ")
-
-        if(key == 'y'):
-            Return2Home()
-        elif(key == 'l'):
-            LaunchPlanet()
-        elif(key == 't'):
-            TransferOre(5)
-        elif(key == 'c'):
-            ContractOre()
-        elif(key == 'r'):
-            RetrieveOre()
-        elif(key == 'e'):
-            ExtendPlanet()
-        
-        while True:
-            Return2LocalStation()
-    except KeyboardInterrupt:
-        print("user cancel")
-        
