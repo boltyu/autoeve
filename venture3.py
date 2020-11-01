@@ -9,7 +9,6 @@ import os
 oremaster = 1
 ifupload = False
 
-print("connecting to devices...")
 for i in range(devicecount):
     os.system(CMD_HOSTADB_GENERAL + "connect " + devicename[i])
 
@@ -17,11 +16,13 @@ def MiningAtLocal():
     global ifupload
     for iii in range(20):
         ExitStation()
+        click(XY_view_menu,2)
         click(XY_view_asteroid,1.5) # changed to asteriod tab
         ApproachTo(1)
         time.sleep(30)
-        for j in range(9):
+        for j in range(10):
             print(j)
+            click(XY_view_menu,2)
             click(XY_view_asteroid,1) # changed to asteriod tab
             ApproachTo(1)
             ApproachTo(0)

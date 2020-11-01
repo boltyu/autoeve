@@ -4,31 +4,54 @@ from GenericMethod import *
 from __main__ import devicecount,devicename
 
 
-for i in devicename:
-    os.system(CMD_HOSTADB_GENERAL + "connect " + i)
+for i in range(devicecount):
+    os.system(CMD_HOSTADB_GENERAL + "connect " + devicename[i])
 
+MiningVersion = 1
 def MiningAtLocal():
-    for iii in range(10):
-        ExitStation()
-        click(XY_view_asteroid,1)
-        ApproachTo(0)
-        time.sleep(20)
-        click(XY_miners[0],1)
-        click(XY_miners[1],1)
-        for j in range(21):
-            print(j)
-            if(j%10==7):
-                click(XY_view_asteroid,2)
-                click(XY_view_asteroid_cluster,2)
-                ApproachTo(2)
-                time.sleep(60)
+    if MiningVersion == 2:
+        for repeats in range(10):
+            ExitStation()
+            time.sleep(20)
+            for miningrepeats in range(21):
+                print(miningrepeats)
+                click(XY_view_asteroid,1)
+                ApproachTo(1)
+                time.sleep(5)
                 click(XY_miners[0],1)
                 click(XY_miners[1],1)
-            click(XY_view_asteroid,2) # changed to asteriod tab
+                ApproachTo(0)
+                time.sleep(120)
+                click(XY_miners[0],1)
+                click(XY_miners[1],1)
+            Return2Home()
+        ExtendPlanet()
+
+    elif MiningVersion == 1:
+        for iii in range(10):
+            ExitStation()
+            time.sleep(12)
+            click(XY_view_menu,2)
+            click(XY_view_asteroid,2)
             ApproachTo(0)
-            time.sleep(60)
-        Return2Home()
-    ExtendPlanet()
+            time.sleep(30)
+            click(XY_miners[0],1)
+            click(XY_miners[1],1)
+            for j in range(21):
+                print(j)
+                if(j%10==6):
+                    click(XY_view_menu,2)
+                    click(XY_view_asteroidcluster,2)
+                    ApproachTo(2)
+                    time.sleep(60)
+                    click(XY_miners[0],1)
+                    click(XY_miners[1],1)
+                click(XY_view_menu,2)
+                click(XY_view_asteroid,2) # changed to asteriod tab
+                ApproachTo(0)
+                time.sleep(60)
+            Return2Home()
+        ExtendPlanet()
 
 def Start():
     try:
@@ -53,11 +76,9 @@ def Start():
             ExtendPlanet()
         else:
             raise KeyboardInterrupt
-
         exit(0)
-
     except KeyboardInterrupt:
-        print("user cancel")
+        pass
 
     while True:
         MiningAtLocal()

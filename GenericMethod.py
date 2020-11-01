@@ -109,6 +109,7 @@ def LaunchPlanet():
         for items_launch in range(4):
             click(XY_planet_item_launch[items_launch],2)
             click(XY_planet_item_launch[items_launch],2)
+            click(XY_planet_reject_autonav,1)
     click(XY_inventory_close,2)
     click(XY_inventory_close,2)
 
@@ -195,8 +196,10 @@ def StoreOre():
     click(XY_inventory_close,2)
 
 def ExitStation():
-    click(XY_exitstation,25)
+    click(XY_exitstation,30)
     click(XY_view,2)
+    click(XY_view_menu,2)
+    click(XY_view_asteroidcluster,2)
     WarpTo()
     #print("We are now in Asteroid Cluster")
 
@@ -204,13 +207,13 @@ def Return2Home():
     #NavigateTo(0)
     click(XY_company,10)
     click(XY_company_setnav,0)
-    click(XY_inventory_close,1)
-    click(XY_inventory_close,1)
     click(XY_navigator,2)
+    click(XY_inventory_close,1)
+    click(XY_inventory_close,1)
     click(XY_miners[0],0)
     click(XY_miners[1],0)
     click(XY_miners[2],0)
-    time.sleep(60)
+    time.sleep(80)
     #print("We are arriving at Home")
     click(XY_closeads,8)
     click(XY_closeads,8)
