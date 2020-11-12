@@ -5,15 +5,15 @@ from __main__ import devicecount,devicename
 
 
 for i in range(devicecount):
-    os.system(CMD_HOSTADB_GENERAL + "connect " + devicename[i])
-
+    DisconnectDevice(devicename[i])
+    ConnectDevice(devicename[i])
 MiningVersion = 1
 def MiningAtLocal():
     if MiningVersion == 2:
         for repeats in range(10):
             ExitStation()
             time.sleep(20)
-            for miningrepeats in range(21):
+            for miningrepeats in range(18):
                 print(miningrepeats)
                 click(XY_view_asteroid,1)
                 ApproachTo(1)
@@ -28,57 +28,61 @@ def MiningAtLocal():
         ExtendPlanet()
 
     elif MiningVersion == 1:
-        for iii in range(10):
+        for iii in range(50):
             ExitStation()
-            time.sleep(12)
-            click(XY_view_menu,2)
-            click(XY_view_asteroid,2)
+            click(XY_view_menu,1)
+            click(XY_view_asteroid,12)
             ApproachTo(0)
-            time.sleep(30)
-            click(XY_miners[0],1)
-            click(XY_miners[1],1)
+            time.sleep(12)
+            click(XY_miners[0],0)
+            click(XY_miners[1],0)
             for j in range(21):
                 print(j)
-                if(j%10==6):
-                    click(XY_view_menu,2)
-                    click(XY_view_asteroidcluster,2)
-                    ApproachTo(2)
-                    time.sleep(60)
-                    click(XY_miners[0],1)
-                    click(XY_miners[1],1)
-                click(XY_view_menu,2)
-                click(XY_view_asteroid,2) # changed to asteriod tab
                 ApproachTo(0)
-                time.sleep(60)
+                time.sleep(30)
             Return2Home()
+        #MoveOre3Company()
         ExtendPlanet()
 
 def Start():
-    try:
-        key = input("Do we need to return home at first? 'y' for yes, null or 'n' for no\r\n \
-            't' for transfer ore\r\n \
-            'e' for extend planet life\r\n \
-            'l' for launch planet ore\r\n \
-            's' for move ore to company\r\n \
-            'r' for retrieve planet ore ")
+    key = input("我们将要?\r\n \
+        'y'返回基地  |  'n'出门采矿\r\n \
+        's'将当前矿船中矿物移出  |  'm'将仓库中矿物送至第一机库\r\n \
+        'e'延长行星开发时效  |  'l'发射行星资源  |  'r'获取行星资源\r\n \
+        'c'重连所有设备  |  'ccc'点击三次右上角关闭按钮\r\n ")
 
-        if(key == 'y'):
-            Return2Home()
-        elif(key == 'l'):
-            LaunchPlanet()
-        elif(key == 't'):
-            TransferOre(5)
-        elif(key == 's'):
-            MoveOre2Company()
-        elif(key == 'r'):
-            RetrieveOre()
-        elif(key == 'e'):
-            ExtendPlanet()
-        else:
-            raise KeyboardInterrupt
-        exit(0)
-    except KeyboardInterrupt:
+    if(key == 'y'):
+        Return2Home()
+    elif(key == 'n'):
         pass
+    elif(key == 'l'):
+        LaunchPlanet()
+    elif(key == 'm'):
+        MoveOre2Company()
+    elif(key == 's'):
+        StoreOre()
+    elif(key == 'r'):
+        RetrieveOre()
+    elif(key == 'e'):
+        ExtendPlanet()
+    elif(key == 'c'): # reconnect
+        for i in range(devicecount):
+            DisconnectDevice(devicename[i])
+            ConnectDevice(devicename[i])
+    elif(key == 'ccc'):
+        click(XY_inventory_close,1)
+        click(XY_inventory_close,1)
+        click(XY_inventory_close,1)
+    else:
+        print('未指定动作，将执行采矿')
 
-    while True:
-        MiningAtLocal()
+
+
+    try:
+        while True:
+            MiningAtLocal()
+    except KeyboardInterrupt:
+        ifreturn = input('终止前返回基地？ y 是, n 否 ')
+        if(ifreturn == 'y'):
+            Return2Home()
+        exit(0)

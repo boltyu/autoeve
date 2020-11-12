@@ -1,15 +1,23 @@
 from parameter_720_1280 import *
 import os,time,socket,tarfile,random
-from PIL import Image
-from __main__ import devicecount,devicename
+#from PIL import Image
+from __main__ import devicecount,devicename,oremaster
 
-def click_single(devicename,position,waittime):
+def click_single(devicename,position):
     os.system(CMD_HOSTADB + devicename + " shell input tap " + position)
 
 def click(position,waittime):
     for i in range(devicecount):
         os.system(CMD_HOSTADB + devicename[i] + " shell input tap " + position)
     time.sleep(waittime)
+
+def DisconnectDevice(devicename):
+    if devicename.find(':') is not -1:
+        os.system(CMD_HOSTADB_GENERAL + " disconnect " + devicename)
+
+def ConnectDevice(devicename):
+    if devicename.find(':') is not -1:
+        os.system(CMD_HOSTADB_GENERAL + " connect " + devicename)
 
 def typetext(textstring,waittime):
     for i in range(devicecount):
@@ -18,9 +26,8 @@ def typetext(textstring,waittime):
 
 def ApproachTo(XY_target):
     #click(XY_afterburner,1)
-    click(XY_targets[XY_target],2)
-    click(XY_targets[XY_target],2)
-    click(XY_targets_approach[XY_target],1.5)
+    click(XY_targets[XY_target],1)
+    click(XY_targets_approach[XY_target],1)
     #click(XY_afterburner,1)
 
 def WarpTo():
@@ -28,8 +35,8 @@ def WarpTo():
     randomtargets = [0,1,2,3]
     random.shuffle(randomtargets)
     for i in range(devicecount):
-        click_single(devicename[i],XY_targets[randomtargets[i]],1)
-        click_single(devicename[i],XY_targets_approach[randomtargets[i]],1)
+        click_single(devicename[i],XY_targets[randomtargets[i]])
+        click_single(devicename[i],XY_targets_approach[randomtargets[i]])
     time.sleep(30)
 
 def LockTarget(XY_target):
@@ -86,7 +93,7 @@ def TransferOre(expecttimes):
                 click(XY_inventory_orehold,2)
             click(XY_inventory_selectall,2)
             click(XY_inventory_moveto,1)
-            click(XY_inventory_moveto_hanger,2)
+            click(XY_inventory_moveto_hostcargo,2)
         TransferDestinition("137 391")
         NavigateToChatpos(0)
         time.sleep(420)
@@ -125,10 +132,10 @@ def RetrieveOre():
         click(XY_planet,3)
         click(XY_planet_items[i],3)
         click("1160 650",2)
+        click(XY_inventory_close,2)
+        click(XY_inventory_close,2)
         click(XY_navigator,2)
         click(XY_navigator_confirm,1)
-        click(XY_inventory_close,2)
-        click(XY_inventory_close,1)
         if i == 1:
             time.sleep(80)
         elif i == 3:
@@ -138,11 +145,7 @@ def RetrieveOre():
         click("460 620",2)
     Return2Home()
     time.sleep(120)
-    click(XY_inventory,5)
-    click(XY_inventory_currentship,2)
-    click(XY_inventory_selectall,5)
-    click(XY_inventory_moveto,3)
-    click(XY_inventory_moveto_hanger,5)
+    click(XY_inventory,4)
     click(XY_inventory_chongfeng,2)
     click(XY_inventory_chongfeng_active,20)
     click(XY_inventory_close,2)
@@ -190,16 +193,18 @@ def StoreOre():
     click(XY_inventory_orehold,5)
     click(XY_inventory_selectall,5)
     click(XY_inventory_moveto,3)
-    click(XY_inventory_moveto_hanger,5)
-    #click("510 422",5)
+    for i in range(devicecount):
+        if(devicename[i] == oremaster):
+            click_single(oremaster,XY_inventory_moveto_hostcargo)
+        else:
+            click_single(devicename[i],XY_inventory_moveto_c1)
+    time.sleep(5)
+    click(XY_inventory_hostcargo,2)
     click(XY_inventory_close,2)
     click(XY_inventory_close,2)
 
 def ExitStation():
-    click(XY_exitstation,30)
-    click(XY_view,2)
-    click(XY_view_menu,2)
-    click(XY_view_asteroidcluster,2)
+    click(XY_exitstation,40)
     WarpTo()
     #print("We are now in Asteroid Cluster")
 
@@ -207,14 +212,16 @@ def Return2Home():
     #NavigateTo(0)
     click(XY_company,10)
     click(XY_company_setnav,0)
-    click(XY_navigator,2)
-    click(XY_inventory_close,1)
-    click(XY_inventory_close,1)
+    click(XY_inventory_close,2)
+    click(XY_navigator,0)
     click(XY_miners[0],0)
     click(XY_miners[1],0)
     click(XY_miners[2],0)
-    time.sleep(80)
+    click(XY_view,2)
+    click(XY_view_menu,2)
+    click(XY_view_asteroidcluster,2)
+    time.sleep(50)
     #print("We are arriving at Home")
-    click(XY_closeads,8)
-    click(XY_closeads,8)
+    click(XY_closeads,5)
+    click(XY_closeads,5)
     StoreOre()

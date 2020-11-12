@@ -18,8 +18,9 @@ if(whichship == 'venture3'):
     print("devicelist: ",devicename[:devicecount])
     import venture3
     venture3.Start()
-elif(whichship == 'retriever'):
-    devicename = ['192.168.1.6:5555','127.0.0.1:5645','127.0.0.1:5555','192.168.1.9:5555']
+else:
+    devicename = ['127.0.0.1:5565','127.0.0.1:5555','192.168.1.3:5555','de496248']
+    oremaster = '127.0.0.1:5555'
     print("devicelist: ",devicename[:devicecount])
     import retriver
     retriver.Start()
