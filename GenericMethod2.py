@@ -1,54 +1,48 @@
 from parameter_720_1280 import *
 import os,time,socket,tarfile,random
 #from PIL import Image
-from __main__ import devicecount,devicename,oremaster
-
-def click_single(devicename,position):
-    os.system(CMD_HOSTADB + devicename + " shell input tap " + position)
+from __main__ import devicename,oremaster
 
 def click(position,waittime):
-    for i in range(devicecount):
-        os.system(CMD_HOSTADB + devicename[i] + " shell input tap " + position)
-    time.sleep(waittime)
+    x,y = position.split(' ')
+    x = str(int(x) + random.randrange(-4,4)) + '.' + str(random.randrange(0,9))
+    y = str(int(y) + random.randrange(-4,4)) + '.' + str(random.randrange(0,9))
+    os.system(CMD_HOSTADB + devicename + " shell input tap " + x + ' ' + y)
+    time.sleep(waittime+random.randrange(0,4))
+
+def doubleclick(position,waittime):
+    x,y = position.split(' ')
+    x = str(int(x) + random.randrange(-4,4)) + '.' + str(random.randrange(0,9))
+    y = str(int(y) + random.randrange(-4,4)) + '.' + str(random.randrange(0,9))
+    interval = str(random.randrange(0,5))
+    os.system(CMD_HOSTADB + devicename + " shell \"input tap " + position + "&sleep 0."+ interval + "&" + "input tap " + position +"\"")
+    time.sleep(waittime+random.randrange(0,4))
 
 def DisconnectDevice(devicename):
-    if devicename.find(':') is not -1:
+    if devicename.find(':') != -1:
         os.system(CMD_HOSTADB_GENERAL + " disconnect " + devicename)
 
 def ConnectDevice(devicename):
-    if devicename.find(':') is not -1:
+    if devicename.find(':') != -1:
         os.system(CMD_HOSTADB_GENERAL + " connect " + devicename)
 
 def typetext(textstring,waittime):
-    for i in range(devicecount):
-        os.system(CMD_HOSTADB + devicename[i] + " shell input text " + textstring)
-    time.sleep(waittime)
+    os.system(CMD_HOSTADB + devicename + " shell input text " + textstring)
+    time.sleep(waittime+random.randrange(0,4))
 
 def ApproachTo(XY_target):
-    #click(XY_afterburner,1)
-    click(XY_targets[XY_target],1)
+    click(XY_targets[XY_target],0)
     click(XY_targets_approach[XY_target],1)
-    #click(XY_afterburner,1)
 
-def WarpTo():
+def WarpTo(randomtargets):
+    randomtargets = random.randrange(0,3)
     click(XY_view,2)
-    click(XY_view,2)
-    click(XY_view,2)
-    randomtargets = [0,1,2,3]
-    random.shuffle(randomtargets)
-    for i in range(devicecount):
-        click_single(devicename[i],XY_targets[randomtargets[i]])
-        click_single(devicename[i],XY_targets_approach[randomtargets[i]])
-    time.sleep(30)
+    click(XY_targets[randomtargets],2)
+    click(XY_targets_approach[randomtargets],3)
 
 def LockTarget(XY_target):
     click(XY_targets[XY_target],1)
-    click(XY_targets_lock[XY_target],1.5)
-
-def doubleclick(position,waittime):
-    for i in range(devicecount):
-        os.system(CMD_HOSTADB + devicename[i] + " shell \"input tap " + position + "&sleep 0.3&" + "input tap " + position +"\"")
-    time.sleep(waittime)
+    click(XY_targets_lock[XY_target],1)
 
 def NavigateToChatpos(XY_position):
     click(XY_chat,2)
@@ -191,39 +185,30 @@ def MoveOre2Company():
 
 
 def StoreOre():
-    click(XY_inventory,5)
+    click(XY_inventory,8)
     click(XY_inventory_orehold,5)
-    click(XY_inventory_selectall,5)
-    click(XY_inventory_moveto,3)
-    for i in range(devicecount):
-        if(devicename[i] == oremaster):
-            click_single(oremaster,XY_inventory_moveto_hostcargo)
-        else:
-            click_single(devicename[i],XY_inventory_moveto_c1)
-    time.sleep(5)
+    click(XY_inventory_selectall,3)
+    click(XY_inventory_moveto,2)
+    click(XY_inventory_moveto_c1,5)
     click(XY_inventory_hostcargo,2)
-    click(XY_inventory_close,2)
+    click(XY_inventory_close,1)
     click(XY_inventory_close,2)
 
 def ExitStation():
-    click(XY_exitstation,50)
-    WarpTo()
+    click(XY_exitstation,60)
+    WarpTo([0,1,2,3])
     #print("We are now in Asteroid Cluster")
 
 def Return2Home():
+    
     #NavigateTo(0)
-    click(XY_company,8)
-    click(XY_company_setnav,0)
-    click(XY_inventory_close,10)
-    click(XY_navigator,0)
-    click(XY_miners[0],0)
-    click(XY_miners[1],0)
-    click(XY_miners[2],0)
-    click(XY_view,2)
+    click(XY_company,12)
+    click(XY_company_setnav,2)
+    click(XY_inventory_close,13)
+    click(XY_navigator,3)
     click(XY_view_menu,2)
-    click(XY_view_asteroidcluster,2)
-    time.sleep(50)
-    #print("We are arriving at Home")
-    click(XY_closeads,5)
-    click(XY_closeads,5)
+    click(XY_view_asteroidandcluster,2)
+    time.sleep(45)
+    click(XY_closeads,2)
+    click(XY_closeads,2)
     StoreOre()

@@ -6,11 +6,11 @@ XY_targets_approach = ["850 160","850 230","850 300","850 380"]
 XY_afterburner = "1230 575"
 XY_stopship = "470 600"
 XY_blank = "660 30"
-XY_view = "1230 400"
+XY_view = "1229 402"
 XY_miners = ["1120 660","1230 660","1060 660"]
 XY_view_menu = "1043 28"
-XY_view_asteroidcluster = "1043 200"
-XY_view_asteroid = "1043 125"
+XY_view_asteroidandcluster = "1043 125"
+XY_view_onlyasteroid = "1043 200"
 XY_chat = "175 695"
 XY_chat_positions = ["435 150","435 260"] # Index 0 is home, 1 is ore
 XY_chat_positions_set = ["300 155","300 260"]
@@ -60,7 +60,7 @@ CMD_HOSTADB_GENERAL = "adb.exe "
 #         if(type(rr[i]) == type("str")):
 #             vv = rr[i].split()
 #             print(i,'=',"'"+str(int(int(vv[0])/0.666))+" "+str(int(int(vv[1])/0.666))+"'")
-#             pass
+#          XY_view = "1230 400"   pass
 #         elif(type(rr[i]) == type(listsome)):
 #             tmpstr = ''
 #             for j in rr[i]:
