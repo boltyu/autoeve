@@ -1,3 +1,4 @@
+import os
 
 XY_targets = ["1100 90","1100 160","1100 230","1100 300"]
 XY_targets_lock = ["850 90","850 160","850 230","850 300"]
@@ -40,7 +41,7 @@ XY_closeads = "1090 113"
 XY_exitstation = "1160 240"
 XY_planet_item_extend = "1200 125"
 XY_planet = "254 114"
-XY_planet_items = ["138 166","138 296","138 418","138 510"]
+XY_planet_items = ["138 166","138 296","138 418","138 510","138 630","138 710"]
 XY_planet_reject_autonav = "932 550"
 XY_planet_item_launch = ["1200 285","1200 370","1200 450","1200 530"]
 XY_inventory_collapse_tabstation = "125 101"
@@ -51,6 +52,10 @@ XY_inventory_imicas_active = "45 493"
 XY_inventory_chongfeng_active= "45 565"
 CMD_HOSTADB = "adb.exe -s "
 CMD_HOSTADB_GENERAL = "adb.exe "
+if os.system("uname") == 0:
+	CMD_HOSTADB = "./adb -s "
+	CMD_HOSTADB_GENERAL = "./adb "
+
     
 
 # rr = vars(XY_POS_1280_720)
