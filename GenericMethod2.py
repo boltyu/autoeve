@@ -196,6 +196,8 @@ def StoreOre():
 
 def ExitStation():
     click(XY_exitstation,60)
+    click(XY_view_menu,1) 
+    click(XY_view_onlyasteroid,2)
     WarpTo([0,1,2,3])
     #print("We are now in Asteroid Cluster")
 
@@ -207,7 +209,7 @@ def Return2Home():
     click(XY_inventory_close,13)
     click(XY_navigator,3)
     click(XY_view_menu,2)
-    click(XY_view_asteroidandcluster,2)
+    click(XY_view_onlyasteroid,2)
     time.sleep(45)
     click(XY_closeads,2)
     click(XY_closeads,2)
