@@ -34,11 +34,11 @@ def ApproachTo(XY_target):
     click(XY_targets[XY_target],0)
     click(XY_targets_approach[XY_target],1)
 
-def WarpTo(randomtargets):
+def WarpTo():
     randomtargets = random.randrange(0,3)
-    click(XY_view,2)
-    click(XY_targets[randomtargets],2)
-    click(XY_targets_approach[randomtargets],3)
+    click(XY_view,1)
+    click(XY_targets[randomtargets],1)
+    click(XY_targets_approach[randomtargets],1)
 
 def LockTarget(XY_target):
     click(XY_targets[XY_target],1)
@@ -198,7 +198,7 @@ def ExitStation():
     click(XY_exitstation,60)
     click(XY_view_menu,1) 
     click(XY_view_onlyasteroid,2)
-    WarpTo([0,1,2,3])
+    WarpTo()
     #print("We are now in Asteroid Cluster")
 
 def Return2Home():

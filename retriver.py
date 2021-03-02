@@ -4,8 +4,7 @@ from GenericMethod2 import *
 from __main__ import devicename,oremaster
 
 
-DisconnectDevice(devicename)
-ConnectDevice(devicename)
+
 
 def MiningAtLocal():
     for iii in range(10):
@@ -15,25 +14,25 @@ def MiningAtLocal():
         click(XY_miners[1],1)
         click(XY_view_menu,1)
         click(XY_view_onlyasteroid,1)
-        for j in range(20):
+        for j in range(15):
+            print(j)
             if j%4 == 0:
                 click(XY_view_menu,1)
-                click(XY_view_asteroidandcluster,1)
-                WarpTo([1,2,3,3])
+                click(XY_view_onlyasteroid,1)
+                WarpTo()
                 time.sleep(15)
-                click(XY_miners[0],0)
-                click(XY_miners[1],0)
-                time.sleep(20)
-                click(XY_view_menu,0)
-                click(XY_view_onlyasteroid,0)
-                click(XY_miners[0],0)
-                click(XY_miners[1],0)
+                click(XY_miners[0],1)
+                click(XY_miners[1],20)
+                click(XY_view_menu,3)
+                click(XY_view_asteroidandcluster,1)
+                click(XY_miners[0],1)
+                click(XY_miners[1],1)
             ApproachTo(0)
-            print(j)
-            time.sleep(25)
         Return2Home()
 def Start():
     mingingcount = 0
+    DisconnectDevice(devicename)
+    ConnectDevice(devicename)
     while True:
         key = input("我们将要?\r\n \
             'y'返回基地\r\n \

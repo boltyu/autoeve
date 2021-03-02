@@ -12,7 +12,7 @@ def MiningAtLocal():
         ExitStation()
         click(XY_view_menu,2)
         click(XY_view_asteroidandcluster,1.5) # changed to asteriod tab
-        for j in range(9):
+        for j in range(5):
             print(j)
             click(XY_view_menu,2)
             click(XY_view_onlyasteroid,2) # changed to asteriod tab
@@ -25,7 +25,8 @@ def MiningAtLocal():
                 click(XY_targets_mine[k%3],1)
             time.sleep(30)
         Return2Home()
-    #ExtendPlanet()
+    print(iii)
+    ExtendPlanet()
     #MoveOre2Company()
     
 
