@@ -2,27 +2,27 @@ import os
 import sys
 global devicename
 
-shiplist = ['venture','retriever']
 devicename = ""
 deviceindex = -1
-try:
-    shiptype = sys.argv[1]
-    deviceindex = int(sys.argv[2])
-except:
-    shiptype = "retriever"
-    devicename = sys.argv[2]
-devicelist = ['127.0.0.1:5555','127.0.0.1:5595','127.0.0.1:5645','192.168.1.5:5555','192.168.1.3:5555','de496248','192.168.1.6:5555']
-if deviceindex < 10 and deviceindex >= 0:
-    devicename = devicelist[deviceindex]
-print("Ship:",shiptype)
-print("Device:",devicename)
 
-if(shiptype == 'venture'):
-    oremaster = 'none'
-    import venture3
-    venture3.Start()
-else:
-    oremaster = 'none'
-    import retriver
-    retriver.Start()
+try:
+    devicename = sys.argv[1]
+except:
+    devicename = ""
+
+if(devicename == ""):
+    devicelist = ['127.0.0.1:5555','de496248','192.168.1.9:5555','add new']
+    for i in range(0,4):
+        print(i,":",devicelist[i])
+    deviceindex = int(input("choose one device: "))
+
+    if deviceindex < 3 and deviceindex >= 0:
+        devicename = devicelist[deviceindex]
+    elif deviceindex == 3:
+        devicename = input()
+        
+print("Device:",devicename)
+oremaster = 'none'
+import retriver
+retriver.Start()
     

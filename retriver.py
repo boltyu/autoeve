@@ -4,31 +4,25 @@ from GenericMethod2 import *
 from __main__ import devicename,oremaster
 
 
-
-
 def MiningAtLocal():
-    for iii in range(10):
-        ExitStation() # ExitStation and ReturnHome should not touch the view category
-        time.sleep(50)
-        click(XY_miners[0],1)
-        click(XY_miners[1],1)
-        click(XY_view_menu,1)
-        click(XY_view_onlyasteroid,1)
-        for j in range(15):
-            print(j)
-            if j%4 == 0:
-                click(XY_view_menu,1)
-                click(XY_view_onlyasteroid,1)
-                WarpTo()
-                time.sleep(15)
-                click(XY_miners[0],1)
-                click(XY_miners[1],20)
-                click(XY_view_menu,3)
-                click(XY_view_asteroidandcluster,1)
-                click(XY_miners[0],1)
-                click(XY_miners[1],1)
-            ApproachTo(0)
-        Return2Home()
+    ExitStation() # ExitStation and ReturnHome should not touch the view category
+    time.sleep(45)
+    click(XY_view_menu,1)
+    click(XY_view_onlyasteroid,1)
+    for j in range(15):
+        print(j)
+        if j%5 == 0:
+            click(XY_view_menu,1)
+            click(XY_view_onlyasteroid,1)
+            WarpTo()
+            time.sleep(20)
+            click(XY_view_menu,1)
+            click(XY_view_asteroidandcluster,1)
+            click(XY_miners[0],1)
+            click(XY_miners[1],1)
+        ApproachTo(0)
+        time.sleep(30)
+    Return2Home()
 def Start():
     mingingcount = 0
     DisconnectDevice(devicename)
