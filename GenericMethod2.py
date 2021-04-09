@@ -116,15 +116,28 @@ def LaunchPlanet():
     click(XY_inventory_close,2)
     click(XY_inventory_close,2)
 
+def SwitchUser(number):
+    stratnumber = ["430 360","640 360","860 360"]
+    click("10 10",2)
+    click(XY_settings,5)
+    click(XY_switchuser,2)
+    click(XY_switchuser_confirm,2)
+    click("10 10",10)
+    click("10 10",11)
+    click("10 10",5)
+    click(stratnumber[int(number)],30)
+    
 
 def RetrieveOre():
-    click(XY_inventory,5)
-    click(XY_inventory_collapse_tabstation,2)
-    click(XY_inventory_imicas,2)
-    click(XY_inventory_imicas_active,20)
-    click(XY_inventory_close,2)
-    click(XY_inventory_close,2)
-    for i in [3,2,1,0]:
+    sw = input("switch ship? y/n:")
+    if( sw == "y" ):
+        click(XY_inventory,5)
+        click(XY_inventory_collapse_tabstation,2)
+        click(XY_inventory_imicas,2)
+        click(XY_inventory_imicas_active,20)
+        click(XY_inventory_close,2)
+        click(XY_inventory_close,2)
+    for i in [5,4,3,2,1,0]:
         click(XY_planet,3)
         click(XY_planet_items[i],3)
         click("1160 650",2)
@@ -132,43 +145,23 @@ def RetrieveOre():
         click(XY_inventory_close,2)
         click(XY_navigator,2)
         click(XY_navigator_confirm,1)
-        if i == 1:
+        if(sw[1] == 'a'):
             time.sleep(80)
-        elif i == 3:
-            time.sleep(50)
-        else:
-            time.sleep(40)
-        click("460 620",2)
+            click("460 620",0)
+        else: 
+            input("press any key to countinue")
+            click("460 620",0)
+            
     Return2Home()
     time.sleep(120)
-    click(XY_inventory,4)
-    click(XY_inventory_chongfeng,2)
-    click(XY_inventory_chongfeng_active,20)
-    click(XY_inventory_close,2)
-    click(XY_inventory_close,2)
-    click(XY_inventory_close,2)
-
-''' 在军团产业中无需使用合同功能
-def ContractOre():
-    click("185 100",5)
-    click("145 679",3)
-    click("733 392",3)
-    click("860 495",3)
-    typetext("boltyu",3)
-    click("1080 30",3)
-    click("1080 30",3)
-    click("1153 660",3)
-    click("730 200",3)
-    click("730 270",3)
-    click("1132 206",3)
-    click("1055 352",3)
-    click("1050 205",3)
-    click("1153 660",3)
-    click("1153 660",3)
-    click("1067 611",3)
-    click(XY_inventory_close,2)
-    click(XY_inventory_close,2)
-'''
+    sw = input("switch ship? y/n:")
+    if( sw == "y" ):
+        click(XY_inventory,4)
+        click(XY_inventory_chongfeng,2)
+        click(XY_inventory_chongfeng_active,20)
+        click(XY_inventory_close,2)
+        click(XY_inventory_close,2)
+        click(XY_inventory_close,2)
 
 def MoveOre2Company():
     click(XY_inventory,5)
