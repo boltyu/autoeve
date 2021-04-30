@@ -60,41 +60,6 @@ def TransferDestinition(target):
     click(XY_navigator,2)
     click(XY_navigator_confirm,2)
 
-
-def TransferOre(expecttimes):
-    for times in range(expecttimes):
-        click(XY_inventory_close,1)
-        click(XY_inventory_close,1)
-        click(XY_inventory,2)
-        for i in range(2):
-            click(XY_inventory_hostcargo,2)
-            click(XY_inventory_item1,1)
-            click(XY_inventory_item1_moveto,1)
-            if i == 1:
-                click(XY_inventory_item1_moveto_shipcargo,1)
-            else:
-                click(XY_inventory_item1_moveto_subtab,1)
-                click(XY_inventory_item1_moveto_subtab_orecargo,1)
-            click(XY_inventory_item1_moveto_setmax,1)
-            click(XY_inventory_item1_moveto_setmax_confirm,1)
-        TransferDestinition("137 497")
-        time.sleep(420)
-        click(XY_inventory_close,1)
-        click(XY_inventory_close,1)
-        click(XY_inventory,2)
-        for i in range(2):
-            if(i == 1):
-                click(XY_inventory_shipcargo,2)
-            else:
-                click(XY_inventory_orehold,2)
-            click(XY_inventory_selectall,2)
-            click(XY_inventory_moveto,1)
-            click(XY_inventory_moveto_hostcargo,2)
-        TransferDestinition("137 391")
-        NavigateToChatpos(0)
-        time.sleep(420)
-        #print("transferation " + str(times) + " finished")
-
 def ExtendPlanet():
     click(XY_planet,5)
     for i in XY_planet_items:
@@ -137,6 +102,7 @@ def RetrieveOre():
         click(XY_inventory_imicas_active,20)
         click(XY_inventory_close,2)
         click(XY_inventory_close,2)
+    im = input("if return home manuly? y/n") 
     for i in [5,4,3,2,1,0]:
         click(XY_planet,3)
         click(XY_planet_items[i],3)
@@ -145,13 +111,15 @@ def RetrieveOre():
         click(XY_inventory_close,2)
         click(XY_navigator,2)
         click(XY_navigator_confirm,1)
-        if(sw[1] == 'a'):
-            time.sleep(80)
-            click("460 620",0)
-        else: 
-            input("press any key to countinue")
-            click("460 620",0)
-            
+        time.sleep(100)
+        click("460 620",0)
+        if(i == 3):
+            if(im == "y"):
+                input("return to home and press any key to continue")
+            else:
+                Return2Home()
+                time.sleep(50)
+                StoreMt()
     Return2Home()
     time.sleep(120)
     sw = input("switch ship? y/n:")
@@ -176,6 +144,15 @@ def MoveOre2Company():
     click(XY_inventory_close,2)
     click(XY_inventory_close,2)
 
+def StoreMt():
+    click(XY_inventory,8)
+    click(XY_inventory_shipcargo,5)
+    click(XY_inventory_selectall,3)
+    click(XY_inventory_moveto,2)
+    click(XY_inventory_moveto_c1,5)
+    click(XY_inventory_hostcargo,2)
+    click(XY_inventory_close,1)
+    click(XY_inventory_close,2)
 
 def StoreOre():
     click(XY_inventory,8)
@@ -195,7 +172,6 @@ def ExitStation():
     #print("We are now in Asteroid Cluster")
 
 def Return2Home():
-    
     #NavigateTo(0)
     click(XY_company,12)
     click(XY_company_setnav,2)
@@ -206,4 +182,3 @@ def Return2Home():
     time.sleep(45)
     click(XY_closeads,2)
     click(XY_closeads,2)
-    StoreOre()
