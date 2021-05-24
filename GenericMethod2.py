@@ -74,10 +74,10 @@ def LaunchPlanet():
     for items in XY_planet_items:
         click(items,2)
         click(XY_planet_item_extend,2)
-        for items_launch in range(4):
-            click(XY_planet_item_launch[items_launch],2)
-            click(XY_planet_item_launch[items_launch],2)
-            click(XY_planet_reject_autonav,1)
+        for items_launch in XY_planet_item_launch:
+            click(items_launc,2)
+            click(items_launch,2)
+            click(XY_planet_reject_autonav,2)
     click(XY_inventory_close,2)
     click(XY_inventory_close,2)
 
@@ -87,49 +87,36 @@ def SwitchUser(number):
     click(XY_settings,5)
     click(XY_switchuser,2)
     click(XY_switchuser_confirm,2)
-    click("10 10",10)
-    click("10 10",11)
+    click("10 10",5)
+    click("10 10",5)
     click("10 10",5)
     click(stratnumber[int(number)],30)
+    click(XY_get_rewards,8)
+    click(XY_planet_reject_autonav,0)
+    click(XY_inventory_close,0)
     
 
 def RetrieveOre():
-    sw = input("switch ship? y/n:")
-    if( sw == "y" ):
-        click(XY_inventory,5)
-        click(XY_inventory_collapse_tabstation,2)
-        click(XY_inventory_imicas,2)
-        click(XY_inventory_imicas_active,20)
-        click(XY_inventory_close,2)
-        click(XY_inventory_close,2)
-    im = input("if return home manuly? y/n") 
     for i in [5,4,3,2,1,0]:
         click(XY_planet,3)
         click(XY_planet_items[i],3)
         click("1160 650",2)
         click(XY_inventory_close,2)
         click(XY_inventory_close,2)
+        click(XY_inventory_close,2)
         click(XY_navigator,2)
         click(XY_navigator_confirm,1)
-        time.sleep(100)
-        click("460 620",0)
-        if(i == 3):
-            if(im == "y"):
-                input("return to home and press any key to continue")
-            else:
-                Return2Home()
-                time.sleep(50)
-                StoreMt()
-    Return2Home()
-    time.sleep(120)
-    sw = input("switch ship? y/n:")
-    if( sw == "y" ):
-        click(XY_inventory,4)
-        click(XY_inventory_chongfeng,2)
-        click(XY_inventory_chongfeng_active,20)
-        click(XY_inventory_close,2)
-        click(XY_inventory_close,2)
-        click(XY_inventory_close,2)
+        if i%3 == 0:
+            
+            Return2Home()
+            time.sleep(100)
+            StoreMt()
+        if i%3 == 2:
+            time.sleep(100)
+            click("460 620",0)
+        else:
+            time.sleep(30)
+            click("460 620",0)
 
 def MoveOre2Company():
     click(XY_inventory,5)
